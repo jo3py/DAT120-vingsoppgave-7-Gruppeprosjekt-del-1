@@ -11,6 +11,8 @@ nedbor = []
 middeltemperatur = []
 hoyeste_middelvind = []
 dato = []
+snodybde_dato = []
+akkumulator = 0
 
 aarstall = input("Skriv inn dato (yyyy): ")
 with open("GitHub/DAT120-vingsoppgave-7-Gruppeprosjekt-del-1/Gruppearbeid/csv_fila/sinnes_2014_2025.csv",
@@ -19,40 +21,84 @@ with open("GitHub/DAT120-vingsoppgave-7-Gruppeprosjekt-del-1/Gruppearbeid/csv_fi
     next(leser)
     for rad in leser:
         if aarstall in rad[2]:
-            snodybde1 = rad[6].replace("-","0")
-            snodybde.append(float(snodybde1))
+            try:
+                snodata = float(rad[6])
+                #snodybde1 = rad[6].replace("-","0")
+                snodybde.append(snodata)
+                akkumulator += 1
+            except ValueError:
+                if "-" in rad[6]:
+                    try:
+                        if snodybde[(akkumulator)-1] >= 0:
+                            snodybde.append(snodybde[akkumulator-1])
+                            akkumulator += 1
+                            #snodybde_dato.append(dato[akkumulatordato])
+                    except:
+                        snodybde1 = rad[6].replace("-","0")
+                        snodybde.append(float(snodybde1))
+                        akkumulator += 1
+                        #snodybde_dato.append(dato[akkumulatordato])
+            finally:
+                    nedbor1 = rad[4].replace(",",".")
+                    nedbor.append(float(nedbor1))
 
-            nedbor1 = rad[4].replace(",",".")
-            nedbor.append(float(nedbor1))
+                    middeltemperatur1 = rad[3].replace(",",".").replace("-","0")
+                    middeltemperatur.append(float(middeltemperatur1))
 
-            middeltemperatur1 = rad[3].replace(",",".").replace("-","0")
-            middeltemperatur.append(float(middeltemperatur1))
+                    middelvind1 = rad[5].replace(",",".").replace("-","0")
+                    hoyeste_middelvind.append(float(middelvind1))
+                    #dato1 = rad[2].split(".")
+                    #dato2 = (dato1[0:2])
+                    #dato.append(dato2)
+                    dato.append(datetime.strptime(rad[2], "%d.%m.%Y"))
+                    #akkumulatordato +=1
 
-            middelvind1 = rad[5].replace(",",".").replace("-","0")
-            hoyeste_middelvind.append(float(middelvind1))
-            #dato1 = rad[2].split(".")
-            #dato2 = (dato1[0:2])
-            #dato.append(dato2)
-            dato.append(datetime.strptime(rad[2], "%d.%m.%Y"))
+
+    
     print()
     print(type(dato[0]))
     #print(type(datoer[0]))
     print(type(snodybde[0]))
     print()
-    plt.subplot (2, 2, 1)
-    plt.plot(dato, snodybde, label = "Snødybde i " + aarstall)
+    print(snodybde)
+    print()
+    print(nedbor)
+    print(middeltemperatur)
+    print(hoyeste_middelvind)
+    print()
+    print(len(snodybde))
+    print(len(dato))
+    #for index in range(len(snodybde)):
+        #snodybde_dato.append(datetime.strptime(dato[index], "%d.%m.%Y"))
+    print(len(snodybde))
+    print(len(snodybde_dato))
+    print(type(snodybde_dato))
+    print(type(dato))
+    print(type(snodybde))
+    test = (snodybde[0])
+    print(type(test))
+    print(test)
+
+
+    plt.subplot (2, 2, 1, label=aarstall)
+    plt.legend(aarstall)
+    plt.bar(dato, snodybde, label="Snødybde i " + aarstall)
+    plt.ylabel("cm")
     plt.ylim(min(snodybde), max(snodybde))
     plt.legend()
 
     plt.subplot (2, 2, 2)
-    plt.plot(dato, nedbor, label = "Nedbør i " + aarstall)
+    plt.bar(dato, nedbor, label = "Nedbør i " + aarstall)
+    plt.ylabel("mm")
     plt.legend()
 
     plt.subplot (2, 2, 3)
-    plt.plot(dato, middeltemperatur, label = "Middeltemperatur i " + aarstall)
+    plt.bar(dato, middeltemperatur, label = "Middeltemperatur i " + aarstall)
+    plt.ylabel("grader Celsius")
     plt.legend()
 
     plt.subplot (2, 2, 4)
-    plt.plot(dato, hoyeste_middelvind, label = "Høyeste_middelvind i " + aarstall)
+    plt.bar(dato, hoyeste_middelvind, label = "Høyeste_middelvind i " + aarstall)
+    plt.ylabel("m/s")
     plt.legend()
     plt.show()
