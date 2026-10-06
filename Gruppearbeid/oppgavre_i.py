@@ -1,0 +1,1 @@
+#Stat av script
