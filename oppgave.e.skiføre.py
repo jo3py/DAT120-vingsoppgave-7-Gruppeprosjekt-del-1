@@ -3,17 +3,48 @@
 # det var skiføre den skisesongen.
 # En skisesong strekker seg fra november forrige år til mai dette året.
 
+while True:
+    try:
+        årstall = int(input("Skriv inn et årstall her: "))
+        if 2015 <= årstall <= 2025:
+            break
+        else:
+            print("Årstallet må være i mellom 2015 og 2025")
+    except ValueError:
+        print("Ugyldig input. Skriv inn et årstall.")
 
-
-årstall = int(input("Skriv inn et årstall her: "))
+antall_skidager = 0
 
 try:
-    fil = open("Gruppearbeid/sinnes_2014_2025_med_makstemperatur.csv", "r", encoding="utf-8-sig")
+    fil = open("Gruppearbeid/sinnes_2014_2025_med_makstemperatur.csv", "r", encoding="UTF-8")
 
     for i, linje in enumerate(fil):
-        if i < 5:
-            rad = linje.strip().split(";")
-            print(rad)
+        if i == 0:
+            continue
+
+        rad = linje.strip().split(";")
+        
+        if rad[7] == "-":
+            continue
+        
+        dato = rad[2]
+        
+        if dato == "":
+            continue
+
+        måned = int(dato[3:5])
+        år = int(dato[6:10])
+        
+        snodybde = float(rad[7].replace(",", "."))
+
+
+        if ((måned >= 11 and år == årstall - 1) or 
+            (måned <= 5 and år == årstall)):
+
+            if snodybde >= 20:
+                antall_skidager += 1
+    
+    print(f"Antall skidager i år {årstall}: {antall_skidager} dager")
 
 
 except FileNotFoundError:
