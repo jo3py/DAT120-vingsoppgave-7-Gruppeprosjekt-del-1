@@ -5,11 +5,16 @@
 
 def teller_skidager(aarstall):
     aarstall = int(aarstall)
+
+    if aarstall < 2015 or aarstall > 2025:
+        print(f"Utilstrekkelig informasjon til å beregne skidager for skisesongen år {aarstall}")
+        return
+
     antall_skidager = 0
+
     try:
-        fil = open("GitHub/DAT120-vingsoppgave-7-Gruppeprosjekt-del-1/Gruppearbeid/" \
-        "csv_fila/sinnes_2014_2025_med_makstemperatur.csv", "r"
-        , encoding="UTF-8")
+        fil = open("Gruppearbeid/sinnes_2014_2025_med_makstemperatur.csv", "r"
+                   , encoding="UTF-8")
 
         for i, linje in enumerate(fil):
             if i == 0:
@@ -37,8 +42,9 @@ def teller_skidager(aarstall):
                 if snodybde >= 20:
                     antall_skidager += 1
     
-        print(f"Antall skidager i år {aarstall}: {antall_skidager} dager")
+        print(f"Skisesongen {aarstall-1}-{aarstall}: {antall_skidager} skidager")
 
 
     except FileNotFoundError:
         print("Fant ikke filen")
+
