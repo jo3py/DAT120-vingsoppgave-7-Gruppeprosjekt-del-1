@@ -1,5 +1,6 @@
 from oppgave_d import plotting_av_data
 from oppgave_e import teller_skidager
+from oppgave_f import forenklet_plantevekst
 from oppgave_h import teller_sommedager
 
 startverdi = True
@@ -21,5 +22,7 @@ while startverdi:
 plotting_av_data(aarstall)
 print()
 teller_skidager(aarstall)
+print()
+forenklet_plantevekst(aarstall)
 print()
 teller_sommedager(aarstall)
