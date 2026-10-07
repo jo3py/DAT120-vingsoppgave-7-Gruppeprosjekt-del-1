@@ -4,6 +4,7 @@
 #minimumstemperaturen. Beregn total plantevekst et gitt år.
 
 #try except få å gi feil om filen ikke fins eller eksisterer, eller om man skriver feil input
+#bruker csv.DictReader leser filen nedover der overskriften blir "key" til verdiene over
 
 import csv
 
@@ -22,7 +23,6 @@ try:
             dato = rad["Tid(norsk normaltid)"]
 
             if dato.endswith(år):
-                
                 temp = rad["Middeltemperatur (døgn)"]
 
                 if temp != "-":
@@ -38,4 +38,4 @@ except ValueError:
 except FileNotFoundError:
     print("Filenotfound")
 except FileExistsError:
-    print("filexistErrorr")
+    print("filexistError")
