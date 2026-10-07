@@ -13,7 +13,7 @@ def teller_skidager(aarstall):
     antall_skidager = 0
 
     try:
-        fil = open("Gruppearbeid/sinnes_2014_2025_med_makstemperatur.csv", "r"
+        fil = open("GitHub/DAT120-vingsoppgave-7-Gruppeprosjekt-del-1/Gruppearbeid/csv_fila/sinnes_2014_2025_med_makstemperatur.csv", "r"
                    , encoding="UTF-8")
 
         for i, linje in enumerate(fil):
