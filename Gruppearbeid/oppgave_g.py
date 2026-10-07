@@ -46,8 +46,7 @@ def null_nedbor():
             lengst = lengde_naa
             start_lengst = start_naa
             slutt_lengst = slutt_naa
-    print(f"Lengde: {lengst}")
+    print(f"Lengde av sammenhengende periode uten nedbør er: {lengst} dager")
     print(f"Startdato: {start_lengst}")
     print(f"Sluttdato: {slutt_lengst}")
     print(f"Rader hoppet over: {feildata}")
-null_nedbor()
